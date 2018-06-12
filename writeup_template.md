@@ -1,47 +1,33 @@
-# **Finding Lane Lines on the Road** 
+# Finding Lane Lines on the Road
 
-## Writeup Template
+The goals/steps of this project are the following:
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
+- Make a pipeline that finds lane lines on the road.
+- Reflect on your work in a written report.
 
----
+# Reflections
 
-**Finding Lane Lines on the Road**
+## Description
+The pipeline consists on 7 steps represented by 7 different functions:
 
-The goals / steps of this project are the following:
-* Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
+- **grayAction**: Returns a gray scaled version of the input image using **cv2.cvtColor** method.
+- **blurAction**: Applies a Gaussian blur to the provided image using **cv2.GaussianBlur** method.
+- **cannyAction**: Use a [Canny transformation](https://en.wikipedia.org/wiki/Canny_edge_detector) to find edges on the image using **cv2.Canny** method.
+- **maskAction**: Eliminate parts of the image that are not interesting in regards to the line detection (for now...).
+- **houghAction**: Use a [Hough transformation](https://en.wikipedia.org/wiki/Hough_transform) to find the lines on the masked image using **cv2.cv2.HoughLinesP**. It also adjust a line to the set of lines returned by the Hough transformation in order to have a clearer-two-lines representation of the road lines using **Merge lines with original image** 
+**ProcessVideo** get a image series and reproduce a video with all this steps above
 
+The output of each step is saved in a directory:
 
-[//]: # (Image References)
+- [test_images_gray](test_images_gray)
+- [test_images_blur](test_images_blur)
+- [test_images_canny](test_images_canny)
+- [test_images_region](test_images_region)
+- [test_images_hough](test_images_hough)
+- [test_images_merged](test_images_merged)
 
-[image1]: ./examples/grayscale.jpg "Grayscale"
+## Potential shortcomings/suggestions
 
----
-
-### Reflection
-
-### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
-
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
-
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
-
-
-### 2. Identify potential shortcomings with your current pipeline
-
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
-
-
-### 3. Suggest possible improvements to your pipeline
-
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+- The lines shake a lot on the videos, a better way to average them should be possible.
+- The line size should be improved.
+- Bright points outside the lines were taking into account.
